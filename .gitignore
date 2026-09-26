@@ -1,0 +1,24 @@
+# Build and runtime output
+**/target/
+**/bin/
+*.log
+.env
+.env.*
+!.env.example
+
+# Spring Tools / Eclipse (generated locally)
+.classpath
+.project
+.settings/
+*.launch
+
+# Other editor settings
+.idea/
+*.iml
+.vscode/
+
+# Large ML data and generated model files
+ml/data/raw/
+ml/models/*.pkl
+ml/models/*.joblib
+ml/models/*.onnx
