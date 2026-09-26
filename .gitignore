@@ -22,3 +22,6 @@ ml/data/raw/
 ml/models/*.pkl
 ml/models/*.joblib
 ml/models/*.onnx
+
+# Local research-paper library (tracked through docs/research/papers-manifest.md)
+docs/research/papers/*.pdf
