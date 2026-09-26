@@ -4,6 +4,8 @@
 
 This repository is organized for phased development. We are starting with the SOA microservices foundation; AI analysis, adaptive policies, post-quantum cryptography, Docker/Kubernetes deployment, and ML training will be added incrementally.
 
+The project scope, approved architecture, research rules, roadmap, and definition of done are fixed in the [Product Requirements Document](docs/PRD.md). All new work must remain aligned with that document.
+
 ## Project structure
 
 ```text
