@@ -232,8 +232,13 @@ Completed:
 - Login with signed JWT generation.
 - Stateless JWT validation and protected current-user endpoint.
 - Isolated automated tests and Bruno end-to-end collection.
+- Gateway correlation-ID propagation.
+- JWT-protected Business Service API.
+- Normalized authentication and API security-event contracts.
+- Internal event ingestion and MySQL-backed monitoring audit history.
+- JWT-protected security-event query API.
 
-Next approved milestone: **Phase 2 — protected business API and normalized security-event pipeline**.
+Next approved milestone: **Phase 3 — research-paper matrix, UNSW-NB15 preparation, baseline models, and reproducible evaluation**.
 
 ## 15. Definition of done
 

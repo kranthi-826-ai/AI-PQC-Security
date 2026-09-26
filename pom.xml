@@ -21,6 +21,7 @@
     </properties>
 
     <modules>
+        <module>platform/event-contracts</module>
         <module>backend/discovery-server</module>
         <module>backend/api-gateway</module>
         <module>backend/auth-service</module>

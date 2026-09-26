@@ -42,7 +42,8 @@ Configure these variables in each applicable STS run configuration. Do not commi
 | Variable | Used by | Purpose |
 |---|---|---|
 | `DB_PASSWORD` | Auth, business, and monitoring services | Local MySQL password |
-| `JWT_SECRET` | Auth service | JWT signing secret containing at least 32 characters |
+| `JWT_SECRET` | Auth, business, and monitoring services | Shared JWT signing/validation secret containing at least 32 characters |
+| `MONITORING_API_KEY` | Auth, business, and monitoring services | Authenticates internal event ingestion |
 
 ## Implemented authentication flow
 
@@ -55,6 +56,18 @@ Configure these variables in each applicable STS run configuration. Do not commi
 - Unit tests for valid, invalid-signature, and expired JWTs
 
 See [Auth Service API](docs/api/auth-service.md) for request examples.
+
+## Implemented security-event flow
+
+- Gateway-generated or client-preserved `X-Correlation-ID`
+- JWT-protected Business Service endpoint
+- Versioned normalized security-event contracts
+- Authentication success/failure and business API access events
+- Service-to-service event ingestion protected by an internal API key
+- MySQL-backed event audit history
+- JWT-protected event query API
+
+See [Phase 2 APIs](docs/api/phase-2-security-events.md) for the end-to-end flow.
 
 ## Import into Spring Tools for Eclipse
 
