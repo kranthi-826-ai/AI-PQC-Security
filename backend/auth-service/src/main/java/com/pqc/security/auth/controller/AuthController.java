@@ -1,6 +1,7 @@
 package com.pqc.security.auth.controller;
 
 import com.pqc.security.auth.dto.AuthResponse;
+import com.pqc.security.auth.dto.CurrentUserResponse;
 import com.pqc.security.auth.dto.LoginRequest;
 import com.pqc.security.auth.dto.RegisterRequest;
 import com.pqc.security.auth.entity.UserEntity;
@@ -10,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -81,5 +83,15 @@ public class AuthController {
                                 request.getUsername(),
                                 null,
                                 null)));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<CurrentUserResponse> currentUser(Authentication authentication) {
+        String role = authentication.getAuthorities().stream()
+                .findFirst()
+                .map(Object::toString)
+                .orElse("ROLE_USER");
+
+        return ResponseEntity.ok(new CurrentUserResponse(authentication.getName(), role));
     }
 }

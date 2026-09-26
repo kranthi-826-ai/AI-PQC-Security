@@ -33,6 +33,29 @@ AI-PQC-Security/
 - Bruno for API testing
 - Free and open-source tools only
 
+## Local environment variables
+
+Configure these variables in each applicable STS run configuration. Do not commit their real values.
+
+| Variable | Used by | Purpose |
+|---|---|---|
+| `DB_PASSWORD` | Auth, business, and monitoring services | Local MySQL password |
+| `JWT_SECRET` | Auth service | JWT signing secret containing at least 32 characters |
+
+## Implemented authentication flow
+
+- User registration with BCrypt password hashing
+- User login through the API Gateway
+- Signed JWT access tokens containing username and role
+- Stateless JWT validation for protected endpoints
+- JSON `401 Unauthorized` responses for missing or invalid tokens
+- Protected `GET /api/v1/auth/me` endpoint
+- Unit tests for valid, invalid-signature, and expired JWTs
+
+See [Auth Service API](docs/api/auth-service.md) for request examples.
+
 ## Import into Spring Tools for Eclipse
 
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
+
+After pulling file changes, use **Refresh** and **Maven → Update Project** in STS.

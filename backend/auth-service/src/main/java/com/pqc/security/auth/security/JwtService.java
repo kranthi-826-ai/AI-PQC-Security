@@ -1,5 +1,7 @@
 package com.pqc.security.auth.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,5 +35,36 @@ public class JwtService {
                 .expiration(Date.from(now.plusMillis(expirationMilliseconds)))
                 .signWith(signingKey)
                 .compact();
+    }
+
+    public Claims parseToken(String token) {
+        return Jwts.parser()
+                .verifyWith(signingKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public String extractUsername(String token) {
+        return parseToken(token).getSubject();
+    }
+
+    public String extractRole(String token) {
+        return parseToken(token).get("role", String.class);
+    }
+
+    public boolean isTokenValid(String token) {
+        try {
+            Claims claims = parseToken(token);
+            String role = claims.get("role", String.class);
+            return claims.getSubject() != null
+                    && !claims.getSubject().isBlank()
+                    && role != null
+                    && !role.isBlank()
+                    && claims.getExpiration() != null
+                    && claims.getExpiration().after(new Date());
+        } catch (JwtException | IllegalArgumentException exception) {
+            return false;
+        }
     }
 }
