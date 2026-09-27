@@ -195,7 +195,8 @@ def main() -> None:
         }
         summary["models"][name] = result
         joblib.dump(pipeline, MODEL_DIR / f"{name}.joblib")
-        mlflow.set_tracking_uri((ML_ROOT / "mlruns").as_uri())
+        database_path = (ML_ROOT / "mlflow.db").as_posix()
+        mlflow.set_tracking_uri(f"sqlite:///{database_path}")
         mlflow.set_experiment("ai-pqc-unsw-nb15")
         with mlflow.start_run(run_name=name):
             mlflow.log_params({"model": name, "seed": SEED, "task": "binary"})
@@ -203,7 +204,8 @@ def main() -> None:
             mlflow.log_metrics({f"test_{k}": v for k, v in result["test"].items() if isinstance(v, (int, float))})
     winner = max(summary["models"], key=lambda name: summary["models"][name]["validation"]["macro_f1"])
     summary["validation_winner"] = winner
-    output = ARTIFACT_DIR / "baseline-results.json"
+    output_name = "baseline-results.json" if args.model == "all" else f"baseline-results-{args.model}.json"
+    output = ARTIFACT_DIR / output_name
     output.write_text(json.dumps(summary, indent=2, default=json_safe), encoding="utf-8")
     print(f"Completed. Validation winner: {winner}. Evidence: {output}")
 

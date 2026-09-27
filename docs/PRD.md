@@ -252,6 +252,11 @@ Phase 3 foundation completed:
 Next execution milestone: download the official predefined UNSW-NB15 files,
 validate their hashes/schema, run the baselines, and review measured results.
 
+Baseline execution completed on 2026-09-27. Random Forest is the current
+validation winner, but its generalization and false-positive rate require
+additional Phase 3 experiments before model promotion. See
+`docs/research/phase-3-baseline-results.md`.
+
 ## 15. Definition of done
 
 A feature is complete only when:

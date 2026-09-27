@@ -36,8 +36,8 @@ python ml/training/train_baselines.py --model all
 
 The script selects using validation macro F1, then evaluates each fitted model
 on the official held-out test file. Results and confusion matrices are written
-under `ml/artifacts/`. If MLflow is installed, the same evidence is recorded in
-the local `ml/mlruns/` store.
+under `ml/artifacts/`. The same evidence is recorded by MLflow in the local
+SQLite database `ml/mlflow.db`.
 
 The first run can take several minutes. Use `--model logistic` for the lightest
 sanity check.

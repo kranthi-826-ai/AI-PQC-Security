@@ -22,6 +22,7 @@ ml/data/raw/
 ml/data/processed/
 ml/artifacts/
 ml/mlruns/
+ml/mlflow.db
 ml/.venv/
 ml/**/__pycache__/
 ml/**/*.pyc
