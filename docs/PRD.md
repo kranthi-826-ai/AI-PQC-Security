@@ -240,6 +240,18 @@ Completed:
 
 Next approved milestone: **Phase 3 — research-paper matrix, UNSW-NB15 preparation, baseline models, and reproducible evaluation**.
 
+Phase 3 foundation completed:
+
+- Traceable literature comparison matrix and experiment protocol.
+- Official UNSW-NB15 acquisition and provenance-validation instructions.
+- Leakage-safe logistic-regression and random-forest baseline pipelines.
+- Accuracy, precision, recall, F1, ROC-AUC, confusion-matrix, false-positive,
+  training-time, and inference-latency evidence capture.
+- Free local MLflow experiment tracking configuration.
+
+Next execution milestone: download the official predefined UNSW-NB15 files,
+validate their hashes/schema, run the baselines, and review measured results.
+
 ## 15. Definition of done
 
 A feature is complete only when:

@@ -69,6 +69,14 @@ See [Auth Service API](docs/api/auth-service.md) for request examples.
 
 See [Phase 2 APIs](docs/api/phase-2-security-events.md) for the end-to-end flow.
 
+## Phase 3 research pipeline
+
+The research matrix, controlled experiment protocol, official UNSW-NB15 data
+validation, baseline training, evaluation evidence, and local MLflow tracking
+are now scaffolded. Start with [the ML pipeline guide](ml/README.md). Accuracy
+claims will be added only after the official dataset is validated and experiments
+are executed.
+
 ## Import into Spring Tools for Eclipse
 
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
