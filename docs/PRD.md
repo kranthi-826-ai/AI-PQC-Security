@@ -257,6 +257,22 @@ validation winner, but its generalization and false-positive rate require
 additional Phase 3 experiments before model promotion. See
 `docs/research/phase-3-baseline-results.md`.
 
+Phase 4 adaptive-security foundation implemented:
+
+- Local FastAPI inference service for the promoted UNSW-NB15 model.
+- Strict network-flow feature schema validation and explainable risk output.
+- Versioned deterministic policy rules using risk, data sensitivity,
+  compatibility, and latency constraints.
+- Classical, hybrid, and PQC policy profiles with explicit fallback reasons.
+- MySQL-backed decision audit containing model and policy versions.
+- Internal API-key protection and automated rule, security, and context tests.
+
+The UNSW-NB15 network-flow dataset and generated microservice security events
+remain separate because they have different schemas and research meanings.
+
+Next approved milestone: **Phase 5 — implement and benchmark the common crypto
+API plus classical, hybrid, ML-KEM, and ML-DSA execution providers**.
+
 ## 15. Definition of done
 
 A feature is complete only when:

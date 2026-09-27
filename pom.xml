@@ -27,6 +27,7 @@
         <module>backend/auth-service</module>
         <module>backend/business-service</module>
         <module>backend/security-monitoring-service</module>
+        <module>platform/adaptive-policy-engine</module>
     </modules>
 
     <dependencyManagement>

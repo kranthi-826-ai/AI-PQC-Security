@@ -19,6 +19,8 @@ AI-PQC-Security/
 |-- frontend/                Client applications
 |   `-- web-dashboard/       React dashboard (later)
 |-- platform/                Adaptive AI and cryptographic-security modules
+|   |-- ai-security-service/ Python UNSW-NB15 model inference API
+|   `-- adaptive-policy-engine/ Java risk-to-crypto policy service
 |-- ml/                      Data, training, evaluation, and model artifacts
 |-- infrastructure/          Database, Docker, Kubernetes, and monitoring
 |-- tests/                   Integration, end-to-end, and performance tests
@@ -43,7 +45,8 @@ Configure these variables in each applicable STS run configuration. Do not commi
 |---|---|---|
 | `DB_PASSWORD` | Auth, business, and monitoring services | Local MySQL password |
 | `JWT_SECRET` | Auth, business, and monitoring services | Shared JWT signing/validation secret containing at least 32 characters |
-| `MONITORING_API_KEY` | Auth, business, and monitoring services | Authenticates internal event ingestion |
+| `MONITORING_API_KEY` | Auth, business, monitoring, AI, and policy services | Authenticates internal service APIs |
+| `AI_SECURITY_SERVICE_URL` | Adaptive policy engine | AI inference service URL; defaults to `http://localhost:8090` |
 
 ## Implemented authentication flow
 
@@ -76,6 +79,20 @@ validation, baseline training, evaluation evidence, and local MLflow tracking
 are now scaffolded. Start with [the ML pipeline guide](ml/README.md). Accuracy
 claims will be added only after the official dataset is validated and experiments
 are executed.
+
+## Phase 4 adaptive-security foundation
+
+- The Python AI service loads the promoted UNSW-NB15 model and returns attack
+  probability, risk level, explanation, and a hash-derived model version.
+- The Java adaptive policy engine combines AI risk with data sensitivity,
+  client compatibility, and latency constraints.
+- Versioned deterministic rules select classical, hybrid, or post-quantum
+  profiles and store the complete input, fallback reason, model version, and
+  policy version in MySQL for research reproducibility.
+- Internal prediction and policy APIs require `X-Internal-API-Key`.
+
+The current policy output is a decision and audit record. Phase 5 will execute
+the selected cryptographic profile. See [Phase 4 APIs](docs/api/phase-4-risk-policy.md).
 
 ## Import into Spring Tools for Eclipse
 
