@@ -20,7 +20,8 @@ AI-PQC-Security/
 |   `-- web-dashboard/       React dashboard (later)
 |-- platform/                Adaptive AI and cryptographic-security modules
 |   |-- ai-security-service/ Python UNSW-NB15 model inference API
-|   `-- adaptive-policy-engine/ Java risk-to-crypto policy service
+|   |-- adaptive-policy-engine/ Java risk-to-crypto policy service
+|   `-- crypto-agility/      Classical, hybrid, and PQC execution libraries
 |-- ml/                      Data, training, evaluation, and model artifacts
 |-- infrastructure/          Database, Docker, Kubernetes, and monitoring
 |-- tests/                   Integration, end-to-end, and performance tests
@@ -91,8 +92,16 @@ are executed.
   policy version in MySQL for research reproducibility.
 - Internal prediction and policy APIs require `X-Internal-API-Key`.
 
-The current policy output is a decision and audit record. Phase 5 will execute
-the selected cryptographic profile. See [Phase 4 APIs](docs/api/phase-4-risk-policy.md).
+The policy output is a decision and audit record whose profile name maps to the
+Phase 5 execution library. See [Phase 4 APIs](docs/api/phase-4-risk-policy.md).
+
+## Phase 5 cryptographic agility
+
+The reusable Java crypto layer implements executable classical, hybrid, and
+post-quantum profiles with authenticated secure envelopes and JMH benchmarks.
+It uses Java 21 cryptography plus maintained Bouncy Castle implementations of
+NIST ML-KEM-768 and ML-DSA-65. See the
+[Phase 5 architecture](docs/architecture/phase-5-crypto-agility.md).
 
 ## Import into Spring Tools for Eclipse
 

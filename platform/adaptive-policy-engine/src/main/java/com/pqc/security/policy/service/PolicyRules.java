@@ -6,10 +6,14 @@ import com.pqc.security.policy.domain.RiskLevel;
 import com.pqc.security.policy.dto.PolicyDecisionRequest;
 import org.springframework.stereotype.Component;
 
+import static com.pqc.security.crypto.api.CryptoProfiles.CLASSICAL;
+import static com.pqc.security.crypto.api.CryptoProfiles.HYBRID;
+import static com.pqc.security.crypto.api.CryptoProfiles.PQC;
+
 @Component
 public class PolicyRules {
 
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.1.0";
     static final long HYBRID_MINIMUM_MILLIS = 8;
     static final long PQC_MINIMUM_MILLIS = 15;
 
@@ -17,23 +21,23 @@ public class PolicyRules {
         RiskLevel effectiveRisk = effectiveRisk(request.riskLevel(), request.dataSensitivity());
         if (effectiveRisk == RiskLevel.HIGH) {
             if (request.pqcSupported() && request.maxCryptoLatencyMillis() >= PQC_MINIMUM_MILLIS) {
-                return selection(effectiveRisk, CryptoMode.PQC, "ML-KEM-768+ML-DSA-65",
+                return selection(effectiveRisk, CryptoMode.PQC, PQC,
                         "High effective risk with PQC compatibility and sufficient latency budget");
             }
             if (request.hybridSupported() && request.maxCryptoLatencyMillis() >= HYBRID_MINIMUM_MILLIS) {
-                return selection(effectiveRisk, CryptoMode.HYBRID, "X25519+ML-KEM-768",
+                return selection(effectiveRisk, CryptoMode.HYBRID, HYBRID,
                         "High risk required a compatibility fallback from PQC to hybrid protection");
             }
-            return selection(effectiveRisk, CryptoMode.CLASSICAL, "AES-256-GCM+ECDSA-P256",
+            return selection(effectiveRisk, CryptoMode.CLASSICAL, CLASSICAL,
                     "High risk required a recorded fallback because PQC and hybrid constraints were not satisfied");
         }
         if (effectiveRisk == RiskLevel.MEDIUM
                 && request.hybridSupported()
                 && request.maxCryptoLatencyMillis() >= HYBRID_MINIMUM_MILLIS) {
-            return selection(effectiveRisk, CryptoMode.HYBRID, "X25519+ML-KEM-768",
+            return selection(effectiveRisk, CryptoMode.HYBRID, HYBRID,
                     "Medium effective risk selected hybrid migration protection");
         }
-        return selection(effectiveRisk, CryptoMode.CLASSICAL, "AES-256-GCM+ECDSA-P256",
+        return selection(effectiveRisk, CryptoMode.CLASSICAL, CLASSICAL,
                 effectiveRisk == RiskLevel.LOW
                         ? "Low effective risk selected the classical profile"
                         : "Compatibility or latency constraints required the classical profile");

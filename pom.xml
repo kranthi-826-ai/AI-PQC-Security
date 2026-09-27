@@ -28,6 +28,7 @@
         <module>backend/business-service</module>
         <module>backend/security-monitoring-service</module>
         <module>platform/adaptive-policy-engine</module>
+        <module>platform/crypto-agility</module>
     </modules>
 
     <dependencyManagement>

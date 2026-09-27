@@ -3,7 +3,7 @@
 Internal Spring Boot service that converts a versioned AI risk assessment and
 application constraints into an explainable cryptographic policy decision.
 
-Initial policy version `1.0.0`:
+Policy version `1.1.0`:
 
 - low effective risk: classical
 - medium effective risk: hybrid when compatible and within latency budget

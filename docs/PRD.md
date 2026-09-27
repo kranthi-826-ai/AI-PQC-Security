@@ -273,6 +273,22 @@ remain separate because they have different schemas and research meanings.
 Next approved milestone: **Phase 5 — implement and benchmark the common crypto
 API plus classical, hybrid, ML-KEM, and ML-DSA execution providers**.
 
+Phase 5 cryptographic-agility foundation implemented:
+
+- Common KEM, signature, payload-cipher, key-pair, and secure-envelope APIs.
+- X25519, AES-256-GCM, and ECDSA P-256 classical providers.
+- NIST ML-KEM-768 and ML-DSA-65 providers through Bouncy Castle 1.86.
+- Maintained X-Wing hybrid key establishment combining X25519 and ML-KEM-768.
+- Fail-closed mapping from policy `1.1.0` profiles to executable providers.
+- Authentication of ciphertext, encapsulation, algorithm metadata, and
+  application-supplied associated context.
+- Correctness and tamper tests plus reproducible JMH benchmark scaffolding.
+
+Next integration milestone: expose controlled crypto execution to the business
+flow, persist execution metrics beside policy decisions, and then implement the
+dashboard/observability phase. Accuracy optimization remains deferred until the
+complete system path is operational.
+
 ## 15. Definition of done
 
 A feature is complete only when:

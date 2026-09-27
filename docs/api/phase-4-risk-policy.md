@@ -42,7 +42,7 @@ All endpoints require `X-Internal-API-Key` with the configured
 
 `POST /api/v1/policies/decisions/evaluate-network` accepts the complete network
 feature object plus sensitivity and compatibility constraints. The policy
-engine calls the AI service, applies policy `1.0.0`, stores the decision, and
+engine calls the AI service, applies policy `1.1.0`, stores the decision, and
 returns the selected profile and reason. Its audit record includes the risk
 explanation, sensitivity, compatibility flags, latency constraint, model
 version, and policy version.
@@ -55,5 +55,5 @@ version, and policy version.
 
 The model makes real predictions only for UNSW-compatible network flows.
 Authentication/API events have a different schema and are not falsely sent to
-this model. Phase 5 will implement the algorithms named by selected profiles;
-Phase 4 selects and audits profiles but does not execute cryptography.
+this model. The Phase 5 crypto-agility library now maps each selected profile
+to executable providers; application-service wiring remains an integration step.
