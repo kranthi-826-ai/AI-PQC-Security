@@ -1,0 +1,81 @@
+package com.pqc.security.business.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.time.Instant;
+
+@Entity
+@Table(name = "crypto_executions")
+public class CryptoExecutionEntity {
+    @Id
+    @Column(length = 36, nullable = false)
+    private String executionId;
+    @Column(nullable = false)
+    private Instant executedAt;
+    @Column(length = 36)
+    private String decisionId;
+    @Column(length = 80, nullable = false)
+    private String correlationId;
+    @Column(length = 100)
+    private String username;
+    @Column(length = 64, nullable = false)
+    private String payloadSha256;
+    @Column(length = 20)
+    private String riskLevel;
+    private double riskScore;
+    @Column(length = 20)
+    private String selectedMode;
+    @Column(length = 120)
+    private String algorithmProfile;
+    @Column(length = 40)
+    private String policyVersion;
+    @Column(length = 80)
+    private String modelVersion;
+    private long policyLatencyMillis;
+    private long cryptoLatencyMillis;
+    private long totalLatencyMillis;
+    private boolean roundTripVerified;
+    @Column(length = 20, nullable = false)
+    private String outcome;
+    @Column(length = 500)
+    private String errorDetail;
+
+    protected CryptoExecutionEntity() { }
+
+    public CryptoExecutionEntity(String executionId, Instant executedAt, String correlationId,
+                                 String username, String payloadSha256) {
+        this.executionId = executionId;
+        this.executedAt = executedAt;
+        this.correlationId = correlationId;
+        this.username = username;
+        this.payloadSha256 = payloadSha256;
+        this.outcome = "STARTED";
+    }
+
+    public void complete(String decisionId, String riskLevel, double riskScore, String selectedMode,
+                         String algorithmProfile, String policyVersion, String modelVersion,
+                         long policyLatencyMillis, long cryptoLatencyMillis, long totalLatencyMillis,
+                         boolean verified) {
+        this.decisionId = decisionId;
+        this.riskLevel = riskLevel;
+        this.riskScore = riskScore;
+        this.selectedMode = selectedMode;
+        this.algorithmProfile = algorithmProfile;
+        this.policyVersion = policyVersion;
+        this.modelVersion = modelVersion;
+        this.policyLatencyMillis = policyLatencyMillis;
+        this.cryptoLatencyMillis = cryptoLatencyMillis;
+        this.totalLatencyMillis = totalLatencyMillis;
+        this.roundTripVerified = verified;
+        this.outcome = verified ? "SUCCESS" : "FAILED";
+    }
+
+    public void fail(long totalLatencyMillis, String errorDetail) {
+        this.totalLatencyMillis = totalLatencyMillis;
+        this.outcome = "FAILED";
+        this.errorDetail = errorDetail == null ? "Unknown error" : errorDetail.substring(0, Math.min(500, errorDetail.length()));
+    }
+}

@@ -284,10 +284,17 @@ Phase 5 cryptographic-agility foundation implemented:
   application-supplied associated context.
 - Correctness and tamper tests plus reproducible JMH benchmark scaffolding.
 
-Next integration milestone: expose controlled crypto execution to the business
-flow, persist execution metrics beside policy decisions, and then implement the
-dashboard/observability phase. Accuracy optimization remains deferred until the
-complete system path is operational.
+Phase 5 adaptive-flow integration implemented:
+
+- Authenticated Business Service orchestration from network features to AI risk,
+  policy decision, selected cryptographic profile, and signed encrypted envelope.
+- Fail-closed dependency and cryptographic error handling.
+- MySQL execution audit with payload fingerprint, model/policy versions,
+  selection, latency, verification result, and bounded error detail.
+- Bruno end-to-end request plus automated orchestration and crypto tests.
+
+Next milestone: **Phase 6 — dashboard and observability**. Accuracy optimization
+remains deferred until the complete system path is operational.
 
 ## 15. Definition of done
 

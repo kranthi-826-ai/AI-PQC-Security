@@ -103,6 +103,12 @@ It uses Java 21 cryptography plus maintained Bouncy Castle implementations of
 NIST ML-KEM-768 and ML-DSA-65. See the
 [Phase 5 architecture](docs/architecture/phase-5-crypto-agility.md).
 
+The authenticated Business Service now connects the complete execution path:
+AI risk inference, adaptive policy selection, selected crypto execution,
+round-trip verification, and a privacy-preserving MySQL execution audit. A
+ready-to-run `Adaptive Secure Data` request is included in the Bruno collection.
+See the [integration design](docs/architecture/phase-5-adaptive-flow-integration.md).
+
 ## Import into Spring Tools for Eclipse
 
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
