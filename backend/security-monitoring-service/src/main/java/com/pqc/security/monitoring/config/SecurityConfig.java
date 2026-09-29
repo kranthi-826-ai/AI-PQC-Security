@@ -24,7 +24,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/events/internal").permitAll()
+                        .requestMatchers(
+                                "/api/v1/events/internal",
+                                "/actuator/health",
+                                "/actuator/info",
+                                "/actuator/prometheus").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(internalApiKeyFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

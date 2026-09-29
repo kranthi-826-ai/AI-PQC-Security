@@ -10,6 +10,8 @@ import com.pqc.security.crypto.api.CryptoKeyPair;
 import com.pqc.security.crypto.api.SecureEnvelope;
 import com.pqc.security.crypto.hybrid.CryptoProfile;
 import com.pqc.security.crypto.hybrid.CryptoProfileFactory;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -25,11 +27,14 @@ public class AdaptiveSecurityService {
 
     private final AdaptivePolicyClient policyClient;
     private final CryptoExecutionRepository executionRepository;
+    private final MeterRegistry meterRegistry;
 
     public AdaptiveSecurityService(AdaptivePolicyClient policyClient,
-                                   CryptoExecutionRepository executionRepository) {
+                                   CryptoExecutionRepository executionRepository,
+                                   MeterRegistry meterRegistry) {
         this.policyClient = policyClient;
         this.executionRepository = executionRepository;
+        this.meterRegistry = meterRegistry;
     }
 
     public AdaptiveSecureResponse protect(AdaptiveSecureRequest request, String username,
@@ -66,6 +71,15 @@ public class AdaptiveSecurityService {
                     decision.selectedMode(), decision.algorithmProfile(), decision.policyVersion(),
                     decision.modelVersion(), policyMillis, cryptoMillis, totalMillis, verified);
             executionRepository.save(audit);
+            meterRegistry.counter("adaptive_security_executions_total",
+                    "outcome", verified ? "success" : "failed",
+                    "mode", decision.selectedMode(),
+                    "risk", decision.effectiveRiskLevel()).increment();
+            Timer.builder("adaptive_security_flow_duration")
+                    .description("End-to-end adaptive policy and cryptographic execution time")
+                    .tag("mode", decision.selectedMode())
+                    .register(meterRegistry)
+                    .record(java.time.Duration.ofMillis(totalMillis));
             if (!verified) {
                 throw new GeneralSecurityException("Cryptographic round-trip verification failed");
             }
@@ -82,6 +96,8 @@ public class AdaptiveSecurityService {
         } catch (GeneralSecurityException | RuntimeException exception) {
             audit.fail(elapsedMillis(started), exception.getMessage());
             executionRepository.save(audit);
+            meterRegistry.counter("adaptive_security_executions_total",
+                    "outcome", "failed", "mode", "unselected", "risk", "unknown").increment();
             throw exception;
         } finally {
             Arrays.fill(plaintext, (byte) 0);

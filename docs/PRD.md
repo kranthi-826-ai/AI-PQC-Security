@@ -301,7 +301,15 @@ Phase 6 dashboard foundation implemented:
 - Session-expiry handling, responsive navigation, frontend component tests, production
   bundle verification, and dependency auditing.
 
-Next milestone: **Phase 6 observability — Prometheus metrics and Grafana dashboards**.
+Phase 6 observability foundation implemented:
+
+- Prometheus endpoints across Java services and the Python AI inference service.
+- Bounded, non-sensitive adaptive-execution outcome and latency metrics.
+- Reproducible Prometheus and provisioned Grafana Docker configuration.
+- Service availability, request rate, adaptive latency/outcomes, JVM heap, and
+  CPU dashboard panels.
+
+Next milestone: **Phase 7 — containerization, CI security gates, and deployment**.
 Accuracy optimization remains deferred until the complete system path is operational.
 
 ## 15. Definition of done

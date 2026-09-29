@@ -125,6 +125,14 @@ backend services are running.
 Use `npm test` for the dashboard's login, session-expiry, and research-metric
 rendering checks. Use `npm run build` to verify the production bundle.
 
+## Phase 6 observability
+
+The Java services and Python AI service expose Prometheus-format operational
+metrics. A free local Prometheus and Grafana stack is defined in
+`docker-compose.yml`; set `GRAFANA_ADMIN_PASSWORD` in `.env`, then use
+`docker compose up -d`. See the
+[observability design](docs/architecture/phase-6-observability.md).
+
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
 
 After pulling file changes, use **Refresh** and **Maven → Update Project** in STS.

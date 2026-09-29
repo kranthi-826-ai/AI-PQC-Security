@@ -24,3 +24,11 @@ def test_valid_key_reaches_request_validation(monkeypatch):
     )
 
     assert response.status_code == 422
+
+
+def test_prometheus_metrics_are_available_without_sensitive_values():
+    response = client.get("/metrics")
+
+    assert response.status_code == 200
+    assert "ai_security_requests_total" in response.text
+    assert "MONITORING_API_KEY" not in response.text
