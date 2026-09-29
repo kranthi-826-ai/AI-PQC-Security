@@ -122,6 +122,9 @@ the gateway without exposing internal service API keys.
 Run `npm install` once and `npm run dev` from the dashboard directory after the
 backend services are running.
 
+Use `npm test` for the dashboard's login, session-expiry, and research-metric
+rendering checks. Use `npm run build` to verify the production bundle.
+
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
 
 After pulling file changes, use **Refresh** and **Maven → Update Project** in STS.

@@ -293,8 +293,16 @@ Phase 5 adaptive-flow integration implemented:
   selection, latency, verification result, and bounded error detail.
 - Bruno end-to-end request plus automated orchestration and crypto tests.
 
-Next milestone: **Phase 6 — dashboard and observability**. Accuracy optimization
-remains deferred until the complete system path is operational.
+Phase 6 dashboard foundation implemented:
+
+- JWT-authenticated React security-operations dashboard.
+- Live security-event, AI risk, selected crypto mode, verification, and latency views.
+- Authenticated execution-history API that excludes encrypted payloads and secrets.
+- Session-expiry handling, responsive navigation, frontend component tests, production
+  bundle verification, and dependency auditing.
+
+Next milestone: **Phase 6 observability — Prometheus metrics and Grafana dashboards**.
+Accuracy optimization remains deferred until the complete system path is operational.
 
 ## 15. Definition of done
 
