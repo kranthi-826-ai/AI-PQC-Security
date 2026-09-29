@@ -309,7 +309,13 @@ Phase 6 observability foundation implemented:
 - Service availability, request rate, adaptive latency/outcomes, JVM heap, and
   CPU dashboard panels.
 
-Next milestone: **Phase 7 — containerization, CI security gates, and deployment**.
+Phase 7 CI security-gate foundation implemented:
+
+- Java, Python, and React verification on every main-branch change and pull request.
+- Gitleaks full-history secret scanning and fail-closed Trivy vulnerability scanning.
+- Weekly reviewed dependency updates for Maven, pip, npm, and GitHub Actions.
+
+Next milestone: **Phase 7 — application containerization and Kubernetes deployment**.
 Accuracy optimization remains deferred until the complete system path is operational.
 
 ## 15. Definition of done
