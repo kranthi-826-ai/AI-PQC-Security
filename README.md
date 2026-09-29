@@ -111,6 +111,17 @@ See the [integration design](docs/architecture/phase-5-adaptive-flow-integration
 
 ## Import into Spring Tools for Eclipse
 
+## Phase 6 dashboard foundation
+
+The React security dashboard in `frontend/web-dashboard` uses the authenticated
+gateway APIs to display recent security events and adaptive crypto executions,
+including AI risk, selected protection mode, verification outcome, and latency.
+JWTs are kept in session storage and the development server proxies API calls to
+the gateway without exposing internal service API keys.
+
+Run `npm install` once and `npm run dev` from the dashboard directory after the
+backend services are running.
+
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
 
 After pulling file changes, use **Refresh** and **Maven → Update Project** in STS.

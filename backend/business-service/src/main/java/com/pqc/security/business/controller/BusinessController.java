@@ -3,7 +3,9 @@ package com.pqc.security.business.controller;
 import com.pqc.security.business.dto.SecureDataResponse;
 import com.pqc.security.business.dto.AdaptiveSecureRequest;
 import com.pqc.security.business.dto.AdaptiveSecureResponse;
+import com.pqc.security.business.dto.CryptoExecutionResponse;
 import com.pqc.security.business.event.SecurityEventPublisher;
+import com.pqc.security.business.repository.CryptoExecutionRepository;
 import com.pqc.security.business.service.AdaptiveSecurityService;
 import com.pqc.security.events.SecurityEvent;
 import com.pqc.security.events.SecurityEventType;
@@ -19,17 +21,29 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/business")
 public class BusinessController {
 
     private final SecurityEventPublisher eventPublisher;
     private final AdaptiveSecurityService adaptiveSecurityService;
+    private final CryptoExecutionRepository executionRepository;
 
     public BusinessController(SecurityEventPublisher eventPublisher,
-                              AdaptiveSecurityService adaptiveSecurityService) {
+                              AdaptiveSecurityService adaptiveSecurityService,
+                              CryptoExecutionRepository executionRepository) {
         this.eventPublisher = eventPublisher;
         this.adaptiveSecurityService = adaptiveSecurityService;
+        this.executionRepository = executionRepository;
+    }
+
+    @GetMapping("/executions")
+    public List<CryptoExecutionResponse> latestExecutions() {
+        return executionRepository.findTop100ByOrderByExecutedAtDesc().stream()
+                .map(CryptoExecutionResponse::from)
+                .toList();
     }
 
     @GetMapping("/secure-data")

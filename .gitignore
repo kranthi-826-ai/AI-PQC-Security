@@ -26,6 +26,8 @@ ml/mlflow.db
 ml/.venv/
 **/__pycache__/
 **/*.pyc
+**/node_modules/
+**/dist/
 ml/models/*.pkl
 ml/models/*.joblib
 ml/models/*.onnx

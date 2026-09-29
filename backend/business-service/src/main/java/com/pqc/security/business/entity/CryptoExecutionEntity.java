@@ -78,4 +78,22 @@ public class CryptoExecutionEntity {
         this.outcome = "FAILED";
         this.errorDetail = errorDetail == null ? "Unknown error" : errorDetail.substring(0, Math.min(500, errorDetail.length()));
     }
+
+    public String getExecutionId() { return executionId; }
+    public Instant getExecutedAt() { return executedAt; }
+    public String getDecisionId() { return decisionId; }
+    public String getCorrelationId() { return correlationId; }
+    public String getUsername() { return username; }
+    public String getRiskLevel() { return riskLevel; }
+    public double getRiskScore() { return riskScore; }
+    public String getSelectedMode() { return selectedMode; }
+    public String getAlgorithmProfile() { return algorithmProfile; }
+    public String getPolicyVersion() { return policyVersion; }
+    public String getModelVersion() { return modelVersion; }
+    public long getPolicyLatencyMillis() { return policyLatencyMillis; }
+    public long getCryptoLatencyMillis() { return cryptoLatencyMillis; }
+    public long getTotalLatencyMillis() { return totalLatencyMillis; }
+    public boolean isRoundTripVerified() { return roundTripVerified; }
+    public String getOutcome() { return outcome; }
+    public String getErrorDetail() { return errorDetail; }
 }
