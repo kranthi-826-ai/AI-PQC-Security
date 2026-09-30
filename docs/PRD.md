@@ -313,6 +313,13 @@ Phase 7 CI security-gate foundation implemented:
 
 - Java, Python, and React verification on every main-branch change and pull request.
 - Gitleaks full-history secret scanning and fail-closed Trivy vulnerability scanning.
+
+Phase 8 Kubernetes foundation implemented:
+
+- Isolated namespace with persistent MySQL and promoted-model storage.
+- Health probes and laptop-sized CPU/memory requests and limits.
+- Cluster-internal microservices with NodePort exposure only for the gateway and dashboard.
+- Git-excluded secrets and model artifact, plus default-deny network isolation.
 - Weekly reviewed dependency updates for Maven, pip, npm, and GitHub Actions.
 
 Phase 7 container foundation implemented:

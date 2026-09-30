@@ -160,3 +160,11 @@ The service topology and verified end-to-end evidence are documented in the
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
 
 After pulling file changes, use **Refresh** and **Maven → Update Project** in STS.
+
+## Phase 8 Kubernetes
+
+Docker Desktop Kubernetes manifests are available under
+`infrastructure/kubernetes`. They keep secrets and the promoted 106 MB model out
+of Git and images. Follow the
+[Kubernetes deployment guide](docs/architecture/phase-8-kubernetes.md) before
+applying the kustomization.
