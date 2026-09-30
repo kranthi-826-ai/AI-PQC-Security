@@ -177,3 +177,9 @@ The free local MLOps workflow adds hash-verified, quality-gated promotion and
 feature-drift reporting without mixing generated security events into the
 UNSW-NB15 research benchmark. See the
 [MLOps lifecycle](docs/architecture/phase-9-mlops.md).
+
+## Research evidence
+
+The consolidated [system evaluation summary](docs/research/system-evaluation-summary.md)
+maps the model, policy, cryptography, end-to-end, observability, and deployment
+claims to measured evidence and lists the remaining publication experiments.

@@ -238,8 +238,6 @@ Completed:
 - Internal event ingestion and MySQL-backed monitoring audit history.
 - JWT-protected security-event query API.
 
-Next approved milestone: **Phase 3 — research-paper matrix, UNSW-NB15 preparation, baseline models, and reproducible evaluation**.
-
 Phase 3 foundation completed:
 
 - Traceable literature comparison matrix and experiment protocol.
@@ -248,9 +246,6 @@ Phase 3 foundation completed:
 - Accuracy, precision, recall, F1, ROC-AUC, confusion-matrix, false-positive,
   training-time, and inference-latency evidence capture.
 - Free local MLflow experiment tracking configuration.
-
-Next execution milestone: download the official predefined UNSW-NB15 files,
-validate their hashes/schema, run the baselines, and review measured results.
 
 Baseline execution completed on 2026-09-27. Random Forest is the current
 validation winner, but its generalization and false-positive rate require
@@ -269,9 +264,6 @@ Phase 4 adaptive-security foundation implemented:
 
 The UNSW-NB15 network-flow dataset and generated microservice security events
 remain separate because they have different schemas and research meanings.
-
-Next approved milestone: **Phase 5 — implement and benchmark the common crypto
-API plus classical, hybrid, ML-KEM, and ML-DSA execution providers**.
 
 Phase 5 cryptographic-agility foundation implemented:
 
@@ -314,14 +306,14 @@ Phase 7 CI security-gate foundation implemented:
 - Java, Python, and React verification on every main-branch change and pull request.
 - Gitleaks full-history secret scanning and fail-closed Trivy vulnerability scanning.
 
-Phase 8 Kubernetes foundation implemented:
+Kubernetes deployment foundation implemented:
 
 - Isolated namespace with persistent MySQL and promoted-model storage.
 - Health probes and laptop-sized CPU/memory requests and limits.
 - Cluster-internal microservices with NodePort exposure only for the gateway and dashboard.
 - Git-excluded secrets and model artifact, plus default-deny network isolation.
 
-Phase 9 local-first MLOps foundation implemented:
+Local-first MLOps foundation implemented:
 
 - MLflow-backed reproducible experiments and dataset/model hashing.
 - Fail-closed model promotion with held-out quality gates and atomic artifact copying.
@@ -335,8 +327,15 @@ Phase 7 container foundation implemented:
 - Nginx-hosted production React dashboard with same-origin gateway proxying.
 - Profile-controlled full Compose topology with isolated MySQL storage.
 
-Next milestone: **Phase 7 — Kubernetes deployment manifests and container E2E validation**.
-Accuracy optimization remains deferred until the complete system path is operational.
+Container E2E validation completed with all seven Bruno scenarios passing, all
+configured Prometheus targets healthy, and MySQL audit records verified.
+Kubernetes manifests render to 27 valid resources. The first controlled JMH
+checkpoint now records executable classical, hybrid, ML-KEM, and ML-DSA timing.
+
+Current milestone: **Phase 8 — consolidate the research demonstration, repeat
+controlled performance experiments, and improve the model under the frozen
+UNSW-NB15 protocol without test-set leakage.** The evidence index is maintained
+in `docs/research/system-evaluation-summary.md`.
 
 ## 15. Definition of done
 
