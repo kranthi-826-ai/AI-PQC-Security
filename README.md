@@ -104,6 +104,8 @@ post-quantum profiles with authenticated secure envelopes and JMH benchmarks.
 It uses Java 21 cryptography plus maintained Bouncy Castle implementations of
 NIST ML-KEM-768 and ML-DSA-65. See the
 [Phase 5 architecture](docs/architecture/phase-5-crypto-agility.md).
+The first reproducible laptop measurements are recorded in the
+[Phase 5 cryptographic benchmark report](docs/research/phase-5-crypto-benchmark-results.md).
 
 The authenticated Business Service now connects the complete execution path:
 AI risk inference, adaptive policy selection, selected crypto execution,

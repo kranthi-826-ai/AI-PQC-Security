@@ -37,7 +37,7 @@ def test_prometheus_metrics_are_available_without_sensitive_values():
 
 
 def test_configured_model_path_does_not_evaluate_repository_fallback(monkeypatch):
-    container_path = "/models/random_forest.joblib"
+    container_path = "/models/model.joblib"
     monkeypatch.setenv("AI_MODEL_PATH", container_path)
 
     assert configured_model_path() == Path(container_path)

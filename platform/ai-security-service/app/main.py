@@ -15,7 +15,7 @@ from .schemas import ModelStatus, PredictionRequest, PredictionResponse
 
 def default_model_path() -> Path:
     repository_root = Path(__file__).resolve().parents[3]
-    return repository_root / "ml" / "models" / "random_forest.joblib"
+    return repository_root / "ml" / "models" / "promoted" / "model.joblib"
 
 
 def configured_model_path() -> Path:
