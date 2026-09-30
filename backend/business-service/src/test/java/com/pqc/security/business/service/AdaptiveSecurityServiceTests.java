@@ -16,6 +16,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.ArgumentCaptor;
+import com.pqc.security.business.entity.CryptoExecutionEntity;
 
 class AdaptiveSecurityServiceTests {
 
@@ -39,6 +41,9 @@ class AdaptiveSecurityServiceTests {
         assertThat(response.encryptedPayload()).isNotBlank();
         assertThat(response.encryptedPayload()).doesNotContain("classified payload");
         verify(repository, org.mockito.Mockito.times(2)).save(any());
+        ArgumentCaptor<CryptoExecutionEntity> auditCaptor = ArgumentCaptor.forClass(CryptoExecutionEntity.class);
+        verify(repository, org.mockito.Mockito.times(2)).save(auditCaptor.capture());
+        assertThat(auditCaptor.getAllValues().getLast().getSelectionReason()).isEqualTo("test selection");
         assertThat(meters.get("adaptive_security_executions_total").counter().count()).isEqualTo(1.0);
     }
 }

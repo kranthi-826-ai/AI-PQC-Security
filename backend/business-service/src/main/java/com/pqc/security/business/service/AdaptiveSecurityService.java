@@ -68,7 +68,7 @@ public class AdaptiveSecurityService {
             long totalMillis = elapsedMillis(started);
 
             audit.complete(decision.decisionId(), decision.effectiveRiskLevel(), decision.riskScore(),
-                    decision.selectedMode(), decision.algorithmProfile(), decision.policyVersion(),
+                    decision.selectedMode(), decision.algorithmProfile(), decision.reason(), decision.policyVersion(),
                     decision.modelVersion(), policyMillis, cryptoMillis, totalMillis, verified);
             executionRepository.save(audit);
             meterRegistry.counter("adaptive_security_executions_total",

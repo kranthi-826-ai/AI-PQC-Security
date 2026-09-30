@@ -30,6 +30,8 @@ public class CryptoExecutionEntity {
     private String selectedMode;
     @Column(length = 120)
     private String algorithmProfile;
+    @Column(length = 500)
+    private String selectionReason;
     @Column(length = 40)
     private String policyVersion;
     @Column(length = 80)
@@ -56,7 +58,7 @@ public class CryptoExecutionEntity {
     }
 
     public void complete(String decisionId, String riskLevel, double riskScore, String selectedMode,
-                         String algorithmProfile, String policyVersion, String modelVersion,
+                         String algorithmProfile, String selectionReason, String policyVersion, String modelVersion,
                          long policyLatencyMillis, long cryptoLatencyMillis, long totalLatencyMillis,
                          boolean verified) {
         this.decisionId = decisionId;
@@ -64,6 +66,7 @@ public class CryptoExecutionEntity {
         this.riskScore = riskScore;
         this.selectedMode = selectedMode;
         this.algorithmProfile = algorithmProfile;
+        this.selectionReason = selectionReason;
         this.policyVersion = policyVersion;
         this.modelVersion = modelVersion;
         this.policyLatencyMillis = policyLatencyMillis;
@@ -88,6 +91,7 @@ public class CryptoExecutionEntity {
     public double getRiskScore() { return riskScore; }
     public String getSelectedMode() { return selectedMode; }
     public String getAlgorithmProfile() { return algorithmProfile; }
+    public String getSelectionReason() { return selectionReason; }
     public String getPolicyVersion() { return policyVersion; }
     public String getModelVersion() { return modelVersion; }
     public long getPolicyLatencyMillis() { return policyLatencyMillis; }

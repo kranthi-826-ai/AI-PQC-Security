@@ -118,8 +118,11 @@ See the [integration design](docs/architecture/phase-5-adaptive-flow-integration
 ## Phase 6 dashboard foundation
 
 The React security dashboard in `frontend/web-dashboard` uses the authenticated
-gateway APIs to display recent security events and adaptive crypto executions,
-including AI risk, selected protection mode, verification outcome, and latency.
+gateway APIs to display recent security events and adaptive crypto executions.
+Its lecturer-friendly decision journey explains the observed request, AI risk,
+policy threshold, selected protection mode, selection reason, verification
+outcome, model and policy versions, and latency breakdown. The wording treats
+network features as attack-like evidence rather than claiming a confirmed attack.
 JWTs are kept in session storage and the development server proxies API calls to
 the gateway without exposing internal service API keys.
 

@@ -1,21 +1,2 @@
-html { scroll-behavior: smooth; }
-nav a { text-decoration: none; }
-.table + .table { margin-top: 16px; }
-.execution-grid {
-  display: grid;
-  grid-template-columns: 90px minmax(260px, 1fr) 120px 100px;
-  align-items: center;
-  border-top: 1px solid #1e3045;
-}
-.execution-grid > * { padding: 14px 12px; border-bottom: 1px solid #142438; }
-.execution-grid > b { color: #8292a8; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
-.execution-grid small { display: block; color: #74859b; margin-top: 4px; overflow-wrap: anywhere; }
-.status { font-size: 12px; font-weight: 700; }
-.status.success { color: #45d9a4; }
-.status.denied { color: #ff6878; }
-
-@media (max-width: 600px) {
-  .execution-grid { grid-template-columns: 74px 1fr; }
-  .execution-grid > b:nth-child(3), .execution-grid > b:nth-child(4),
-  .execution-grid > .status, .execution-grid > time { display: none; }
-}
+/* Execution-specific layout is maintained in styles.css so the dashboard's
+   responsive table and decision journey share one visual system. */

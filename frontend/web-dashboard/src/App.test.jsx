@@ -18,7 +18,7 @@ describe('AI-PQC dashboard', () => {
     fetch
       .mockReturnValueOnce(response({token: 'signed.jwt.value'}))
       .mockReturnValueOnce(response([{eventId:'e1',eventType:'LOGIN_SUCCEEDED',outcome:'SUCCESS',sourceService:'auth-service',username:'researcher',requestPath:'/login',occurredAt:'2026-09-29T10:00:00Z'}]))
-      .mockReturnValueOnce(response([{executionId:'x1',riskLevel:'HIGH',riskScore:0.91,selectedMode:'PQC',algorithmProfile:'ML-KEM-768+AES-256-GCM+ML-DSA-65',policyLatencyMillis:40,cryptoLatencyMillis:20,totalLatencyMillis:70,roundTripVerified:true,outcome:'SUCCESS'}]));
+      .mockReturnValueOnce(response([{executionId:'x1',riskLevel:'HIGH',riskScore:0.91,selectedMode:'PQC',algorithmProfile:'ML-KEM-768+AES-256-GCM+ML-DSA-65',selectionReason:'High assessed risk and PQC compatibility required post-quantum protection',policyVersion:'1.1.0',modelVersion:'research-model-1',policyLatencyMillis:40,cryptoLatencyMillis:20,totalLatencyMillis:70,roundTripVerified:true,outcome:'SUCCESS'}]));
 
     const user = userEvent.setup();
     render(<App/>);
@@ -27,9 +27,11 @@ describe('AI-PQC dashboard', () => {
     await user.type(screen.getByLabelText('Password'), 'safe-password');
     await user.click(screen.getByRole('button', {name:'Sign in securely'}));
 
-    expect(await screen.findByText('Adaptive protection overview')).toBeInTheDocument();
-    expect(screen.getByText('91%')).toBeInTheDocument();
-    expect(screen.getAllByText('ML-KEM-768+AES-256-GCM+ML-DSA-65')).toHaveLength(2);
+    expect(await screen.findByText('Adaptive security overview')).toBeInTheDocument();
+    expect(screen.getAllByText('91%').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('ML-KEM-768+AES-256-GCM+ML-DSA-65').length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByText('High assessed risk and PQC compatibility required post-quantum protection').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('Strong attack-like traffic characteristics detected')).toBeInTheDocument();
     expect(sessionStorage.getItem('pqcToken')).toBe('signed.jwt.value');
   });
 
