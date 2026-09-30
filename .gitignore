@@ -31,6 +31,7 @@ ml/.venv/
 ml/models/*.pkl
 ml/models/*.joblib
 ml/models/*.onnx
+ml/models/promoted/
 
 # Local research-paper library (tracked through docs/research/papers-manifest.md)
 docs/research/papers/*.pdf

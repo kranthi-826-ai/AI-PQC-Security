@@ -139,8 +139,8 @@ metrics. A free local Prometheus and Grafana stack is defined in
 ## Phase 7 container stack
 
 Copy `.env.example` to `.env` and replace every placeholder. Ensure the promoted
-model exists at `AI_MODEL_PATH` (the default is the locally trained
-`ml/models/random_forest.joblib`). Then run the complete application with:
+model exists at `AI_MODEL_PATH` (the default is the locally quality-gated
+`ml/models/promoted/model.joblib`). Then run the complete application with:
 
 ```text
 docker compose --profile app up --build -d
@@ -168,3 +168,10 @@ Docker Desktop Kubernetes manifests are available under
 of Git and images. Follow the
 [Kubernetes deployment guide](docs/architecture/phase-8-kubernetes.md) before
 applying the kustomization.
+
+## Phase 9 MLOps
+
+The free local MLOps workflow adds hash-verified, quality-gated promotion and
+feature-drift reporting without mixing generated security events into the
+UNSW-NB15 research benchmark. See the
+[MLOps lifecycle](docs/architecture/phase-9-mlops.md).

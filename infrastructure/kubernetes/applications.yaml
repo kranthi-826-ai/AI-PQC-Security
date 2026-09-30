@@ -6,7 +6,7 @@ data:
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka/
   AI_SECURITY_SERVICE_URL: http://ai-security-service:8090
   ADAPTIVE_POLICY_URL: http://adaptive-policy-engine:8091
-  AI_MODEL_PATH: /models/random_forest.joblib
+  AI_MODEL_PATH: /models/model.joblib
 ---
 apiVersion: apps/v1
 kind: Deployment

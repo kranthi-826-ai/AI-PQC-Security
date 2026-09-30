@@ -41,3 +41,30 @@ SQLite database `ml/mlflow.db`.
 
 The first run can take several minutes. Use `--model logistic` for the lightest
 sanity check.
+
+## 5. Promote through quality gates
+
+Promotion is fail-closed: the validation winner must meet held-out macro-F1,
+attack-recall, false-positive-rate, and ROC-AUC gates. The binary and its hash,
+dataset hashes, metrics, and timestamp are copied atomically to a Git-ignored
+local registry.
+
+```powershell
+python ml/mlops/promote_candidate.py
+```
+
+Point `AI_MODEL_PATH` to `./ml/models/promoted/model.joblib` only after this
+command succeeds. Keep the original candidate for rollback.
+
+## 6. Detect drift
+
+Export runtime network-flow features to a separate CSV; do not merge security
+events into UNSW-NB15. Compare that observation window with the official
+training reference:
+
+```powershell
+python ml/evaluation/detect_drift.py --reference <reference.csv> --current <runtime-window.csv>
+```
+
+Drift creates evidence for investigation or retraining. It never automatically
+promotes a new model.

@@ -42,7 +42,7 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: pip install pip-audit -r ml/requirements.txt -r platform/ai-security-service/requirements.txt
       - run: pip-audit
-      - run: PYTHONPATH=platform/ai-security-service pytest -q platform/ai-security-service/tests
+      - run: PYTHONPATH=platform/ai-security-service:. pytest -q platform/ai-security-service/tests ml/tests
 
   frontend:
     name: React dashboard

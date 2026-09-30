@@ -320,6 +320,13 @@ Phase 8 Kubernetes foundation implemented:
 - Health probes and laptop-sized CPU/memory requests and limits.
 - Cluster-internal microservices with NodePort exposure only for the gateway and dashboard.
 - Git-excluded secrets and model artifact, plus default-deny network isolation.
+
+Phase 9 local-first MLOps foundation implemented:
+
+- MLflow-backed reproducible experiments and dataset/model hashing.
+- Fail-closed model promotion with held-out quality gates and atomic artifact copying.
+- Numeric and categorical drift detection without automatic retraining.
+- Explicit model rollback through a promoted-artifact path and separate system datasets.
 - Weekly reviewed dependency updates for Maven, pip, npm, and GitHub Actions.
 
 Phase 7 container foundation implemented:

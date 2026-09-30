@@ -24,7 +24,7 @@ apply the full kustomization:
 kubectl apply -f infrastructure/kubernetes/namespace.yaml
 kubectl apply -f infrastructure/kubernetes/storage.yaml
 kubectl -n ai-pqc-security wait --for=condition=Ready pod/model-loader --timeout=120s
-kubectl -n ai-pqc-security cp ml/models/random_forest.joblib model-loader:/models/random_forest.joblib
+kubectl -n ai-pqc-security cp ml/models/promoted/model.joblib model-loader:/models/model.joblib
 kubectl apply -k infrastructure/kubernetes
 ```
 

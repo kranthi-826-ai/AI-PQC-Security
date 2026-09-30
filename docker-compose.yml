@@ -118,9 +118,9 @@ services:
       dockerfile: platform/ai-security-service/Dockerfile
     environment:
       MONITORING_API_KEY: ${MONITORING_API_KEY:?Set MONITORING_API_KEY in .env}
-      AI_MODEL_PATH: /models/random_forest.joblib
+      AI_MODEL_PATH: /models/model.joblib
     volumes:
-      - ${AI_MODEL_PATH:-./ml/models/random_forest.joblib}:/models/random_forest.joblib:ro
+      - ${AI_MODEL_PATH:-./ml/models/promoted/model.joblib}:/models/model.joblib:ro
     ports: ["8090:8090"]
     restart: unless-stopped
 
