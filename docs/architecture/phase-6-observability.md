@@ -16,7 +16,9 @@ credentials or protected payloads in metrics.
   are intentionally excluded from metric labels to prevent sensitive leakage and
   unbounded label cardinality.
 
-Prometheus scrapes the host services from Docker through
+Prometheus uses separate target files for the two supported execution modes.
+`prometheus.yml` discovers the full Compose stack by service name, while
+`prometheus-local.yml` scrapes services launched from STS through
 `host.docker.internal`. Grafana is provisioned with a read-only datasource and
 the **AI-PQC Adaptive Security Overview** dashboard.
 
@@ -24,7 +26,8 @@ the **AI-PQC Adaptive Security Overview** dashboard.
 
 1. Set a strong `GRAFANA_ADMIN_PASSWORD` in the local `.env` file.
 2. Start the application services.
-3. Run `docker compose up -d`.
+3. Set `PROMETHEUS_CONFIG=./infrastructure/monitoring/prometheus-local.yml` in
+   `.env`, then run `docker compose up -d`.
 4. Open Prometheus at `http://localhost:9090` and Grafana at
    `http://localhost:3000`.
 5. Stop the monitoring stack with `docker compose down` when finished.

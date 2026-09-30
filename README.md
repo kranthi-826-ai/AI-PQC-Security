@@ -2,7 +2,9 @@
 
 **AI-Driven Adaptive Post-Quantum Cryptographic Security Framework for Distributed Applications**
 
-This repository is organized for phased development. We are starting with the SOA microservices foundation; AI analysis, adaptive policies, post-quantum cryptography, Docker/Kubernetes deployment, and ML training will be added incrementally.
+This repository contains the working SOA foundation, AI risk analysis,
+adaptive policy engine, post-quantum crypto-agility layer, research dashboard,
+and local observability stack. Container and Kubernetes deployment are Phase 7.
 
 The project scope, approved architecture, research rules, roadmap, and definition of done are fixed in the [Product Requirements Document](docs/PRD.md). All new work must remain aligned with that document.
 
@@ -17,7 +19,7 @@ AI-PQC-Security/
 |   |-- business-service/
 |   `-- security-monitoring-service/
 |-- frontend/                Client applications
-|   `-- web-dashboard/       React dashboard (later)
+|   `-- web-dashboard/       React security and research dashboard
 |-- platform/                Adaptive AI and cryptographic-security modules
 |   |-- ai-security-service/ Python UNSW-NB15 model inference API
 |   |-- adaptive-policy-engine/ Java risk-to-crypto policy service
@@ -32,9 +34,9 @@ AI-PQC-Security/
 ## Technology direction
 
 - Java 21, Spring Boot, Spring Cloud, Maven
-- React dashboard (later)
-- Python ML inference service (later)
-- Docker Desktop, then Kubernetes (later)
+- React security dashboard
+- Python ML inference service and local MLflow tracking
+- Docker Desktop and Kubernetes manifests
 - Bruno for API testing
 - Free and open-source tools only
 
@@ -130,8 +132,30 @@ rendering checks. Use `npm run build` to verify the production bundle.
 The Java services and Python AI service expose Prometheus-format operational
 metrics. A free local Prometheus and Grafana stack is defined in
 `docker-compose.yml`; set `GRAFANA_ADMIN_PASSWORD` in `.env`, then use
-`docker compose up -d`. See the
+`docker compose up -d`. When services run from STS instead of containers, set
+`PROMETHEUS_CONFIG=./infrastructure/monitoring/prometheus-local.yml`. See the
 [observability design](docs/architecture/phase-6-observability.md).
+
+## Phase 7 container stack
+
+Copy `.env.example` to `.env` and replace every placeholder. Ensure the promoted
+model exists at `AI_MODEL_PATH` (the default is the locally trained
+`ml/models/random_forest.joblib`). Then run the complete application with:
+
+```text
+docker compose --profile app up --build -d
+```
+
+The dashboard is available at `http://localhost:8088`, Eureka at port `8761`,
+the gateway at port `8080`, MySQL for Workbench at port `3307`, Prometheus at
+port `9090`, and Grafana at port `3000`. The container stack uses its own MySQL
+volume and does not overwrite the MySQL database installed on the host.
+
+CI verifies Java, Python, and React tests, audits dependencies and Git history,
+and blocks high/critical findings. See the
+[Phase 7 DevSecOps design](docs/architecture/phase-7-devsecops.md).
+The service topology and verified end-to-end evidence are documented in the
+[Phase 7 container design](docs/architecture/phase-7-containers.md).
 
 Import the repository root with **File → Import → Maven → Existing Maven Projects**. The Spring projects are located under `backend/`. STS automatically creates its own local `.project`, `.classpath`, and `.settings` files; do not copy or commit those files.
 

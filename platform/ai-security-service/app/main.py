@@ -18,7 +18,12 @@ def default_model_path() -> Path:
     return repository_root / "ml" / "models" / "random_forest.joblib"
 
 
-model = IntrusionModel(Path(os.getenv("AI_MODEL_PATH", default_model_path())))
+def configured_model_path() -> Path:
+    configured_path = os.getenv("AI_MODEL_PATH")
+    return Path(configured_path) if configured_path else default_model_path()
+
+
+model = IntrusionModel(configured_model_path())
 app = FastAPI(title="AI-PQC AI Security Service", version="0.1.0")
 REQUESTS = Counter("ai_security_requests_total", "AI service requests", ["path", "method", "status"])
 LATENCY = Histogram("ai_security_request_duration_seconds", "AI service request latency", ["path"])

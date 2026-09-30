@@ -1,6 +1,8 @@
 from fastapi.testclient import TestClient
 
-from app.main import app
+from pathlib import Path
+
+from app.main import app, configured_model_path
 
 
 client = TestClient(app)
@@ -32,3 +34,10 @@ def test_prometheus_metrics_are_available_without_sensitive_values():
     assert response.status_code == 200
     assert "ai_security_requests_total" in response.text
     assert "MONITORING_API_KEY" not in response.text
+
+
+def test_configured_model_path_does_not_evaluate_repository_fallback(monkeypatch):
+    container_path = "/models/random_forest.joblib"
+    monkeypatch.setenv("AI_MODEL_PATH", container_path)
+
+    assert configured_model_path() == Path(container_path)

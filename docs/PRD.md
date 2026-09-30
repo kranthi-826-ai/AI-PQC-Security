@@ -315,7 +315,13 @@ Phase 7 CI security-gate foundation implemented:
 - Gitleaks full-history secret scanning and fail-closed Trivy vulnerability scanning.
 - Weekly reviewed dependency updates for Maven, pip, npm, and GitHub Actions.
 
-Next milestone: **Phase 7 — application containerization and Kubernetes deployment**.
+Phase 7 container foundation implemented:
+
+- Multi-stage, non-root images for Java services and the Python AI service.
+- Nginx-hosted production React dashboard with same-origin gateway proxying.
+- Profile-controlled full Compose topology with isolated MySQL storage.
+
+Next milestone: **Phase 7 — Kubernetes deployment manifests and container E2E validation**.
 Accuracy optimization remains deferred until the complete system path is operational.
 
 ## 15. Definition of done
