@@ -42,6 +42,47 @@ SQLite database `ml/mlflow.db`.
 The first run can take several minutes. Use `--model logistic` for the lightest
 sanity check.
 
+## 4a. Validation-only candidate search
+
+For iterative model selection, use the validation-only runner instead of
+re-running the baseline command above:
+
+```powershell
+python ml/training/validation_sweep.py
+```
+
+This runner reads only the official training CSV, creates the fixed stratified
+80/20 train/validation split, and writes `ml/artifacts/validation-sweep-20261001.json`.
+It does not load or score the official test CSV, overwrite baseline model files,
+or promote a candidate. After candidate selection and review, run the frozen
+recipe's final evaluation once as a separately recorded study step.
+
+For the next bounded XGBoost comparison, run:
+
+```powershell
+python ml/training/validation_xgboost_sweep.py
+```
+
+It compares four CPU-feasible configurations using two worker threads, applies
+predeclared macro-F1, attack-recall and false-positive-rate gates, and saves only
+an eligible validation candidate under `ml/models/candidates/`. It never loads
+the official test CSV. A higher validation accuracy alone does not qualify a
+model or authorize final-test evaluation.
+
+After selecting a model family, calibrate its decision threshold with a new
+three-way split:
+
+```powershell
+python ml/training/calibrate_xgboost_threshold.py
+```
+
+This experiment uses 70% of the official training file for fitting, 15% for
+threshold selection, and an untouched 15% for validation. It trains the Random
+Forest reference on the same fit rows so comparisons use identical data. The
+threshold must keep FPR at or below 6.04%, preserve at least 95.46% attack
+recall, and beat the reference validation macro-F1. The official test CSV is
+not opened.
+
 ## 5. Promote through quality gates
 
 Promotion is fail-closed: the validation winner must meet held-out macro-F1,

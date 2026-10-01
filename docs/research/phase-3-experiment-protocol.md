@@ -47,6 +47,48 @@ the dataset contains nine attack families plus normal traffic.
 Multiclass attack-family classification and advanced neural/graph candidates
 are later experiments, not shortcuts around the binary baseline.
 
+## Structured iterative optimization
+
+All accuracy-improvement work must follow this sequence. The existing baseline
+is historical evidence; its test metrics are already known. Do not describe a
+later result on the same test file as an entirely unseen external validation.
+
+| Stage | Required work | Evidence and exit condition |
+|---|---|---|
+| 1. Freeze the study | Specify the binary task, dataset hashes, baseline, selection metric, recall/FPR constraints, inference budget, seeds, and search budget before fitting | Versioned experiment configuration; no test-driven settings |
+| 2. Validate data | Check schema, missing/non-finite values, duplicate and train/test overlap counts, class distributions, and feature availability at inference | Validation report; document exclusion/removal policies without silently altering the benchmark |
+| 3. Manage features | Exclude identifiers and target-derived fields; fit imputation, encoding, transformations, and any feature selection inside each training fold | Reusable feature pipeline, schema/version, selected-feature list; no test-fitted transformations |
+| 4. Diagnose errors | Study false positives and missed attacks on validation data, including attack families and distribution changes | Error report that motivates the next change; test errors are not optimization inputs |
+| 5. Optimize in bounded iterations | Compare tuned Random Forest, Extra Trees, and a CPU-feasible boosting candidate; vary one factor group per iteration; use identical training-only folds | Log all attempted configurations and their validation quality/time/memory, including unsuccessful runs |
+| 6. Calibrate and confirm | Tune class decision threshold or calibration using separate validation predictions or cross-validation; measure accuracy, macro F1, attack recall, FPR, and inference latency | Record the accuracy/recall trade-off; repeat shortlisted recipes across at least three seeds; report variation |
+| 7. Freeze and evaluate | Select the final recipe from validation evidence, freeze preprocessing/features/model/threshold, then evaluate the official test set for the study | Save confusion matrix and all metrics; do not repeatedly inspect test scores and select the highest one |
+| 8. Integrate and reproduce | Check the promoted model's hash/schema, API outputs, policy decisions, drift handling, and latency under the same inputs | Recorded integration evidence and rollback artifact; model accuracy and full-system correctness remain separate claims |
+
+Use validation macro F1 as the current selection metric, with recall, FPR, and
+latency constraints specified in the study configuration. An accuracy increase
+that substantially worsens missed attacks is a documented trade-off, not an
+automatic improvement. Compare selected-feature versus full-feature models and
+untuned versus tuned thresholds as ablations under matching evaluation rules.
+
+The baseline runner currently evaluates both fitted models on the official
+test set. It is suitable for reproducing that baseline, not for a repeated
+hyperparameter search. `ml/training/validation_sweep.py` now provides a bounded
+validation-only Random Forest comparison; it loads only the official training
+CSV, writes a separate report, and does not overwrite baseline artifacts. Its
+predeclared eligibility gates require validation macro F1 above the historical
+RF baseline, attack recall no more than one percentage point below baseline,
+false-positive rate no more than one percentage point above baseline, and
+inference latency no more than twice baseline. A passing candidate is still
+only a validation candidate; the final-evaluation step remains separate and
+must be implemented/run before any promotion.
+
+For every iteration, save the hypothesis, parent run, changed settings, dataset
+and code versions, seed, validation results, runtime, resource use, and decision
+to keep or reject the change in local MLflow and machine-readable artifacts.
+Use bounded CPU parallelism on the 16 GB laptop; do not start several heavy
+training jobs together. A later independent microservice workload or external
+dataset is a separate generalization test, not a replacement for the benchmark.
+
 ## Model promotion rule
 
 A candidate may be marked `candidate` only when it beats the baseline validation

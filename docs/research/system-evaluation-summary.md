@@ -4,6 +4,9 @@ This document is the evidence index for the research demonstration. It links
 each project claim to a repeatable test or measured result and prevents the
 paper from treating implemented features as experimentally proven outcomes.
 
+The [research journal](research-journal.md) records ongoing decisions,
+experiments, limitations and the evidence needed to prepare the paper.
+
 ## Evaluated evidence
 
 | Research question | Current evidence | Result | Remaining publication work |
@@ -29,6 +32,11 @@ paper from treating implemented features as experimentally proven outcomes.
 
 The complete dataset hashes, split rules, confusion matrices, and environment
 are in [Phase 3 baseline results](phase-3-baseline-results.md).
+
+A calibrated XGBoost candidate passed three repeated validation splits but did
+not beat the Random Forest on the frozen official-test evaluation: 89.17%
+accuracy, 88.79% macro F1, 97.68% attack recall and 21.25% FPR. It was rejected;
+see [Phase 3 XGBoost calibration results](phase-3-xgboost-calibration-results.md).
 
 ### Cryptographic execution
 
@@ -63,5 +71,7 @@ The protocol and interpretation limits are in the
 - Local cryptographic timings are hardware- and protocol-dependent.
 - Passing functional and vulnerability checks does not prove absence of defects.
 - The project integrates standardized primitives; it does not invent a new cipher.
-- Accuracy improvement will be claimed only after a candidate beats the current
-  baseline on the untouched official test split and passes every promotion gate.
+- Accuracy improvement will be claimed only after a validation-selected, frozen
+  candidate beats the recorded baseline under the documented official test
+  protocol and passes every promotion gate. Prior baseline test metrics are
+  already known; disclose test-set reuse and keep it out of tuning decisions.
