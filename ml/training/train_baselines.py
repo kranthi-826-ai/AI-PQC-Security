@@ -117,6 +117,22 @@ def models(columns: list[str]) -> dict[str, Pipeline]:
                 ),
             ]
         ),
+        "rf_unweighted": Pipeline(
+            [
+                ("preprocess", preprocessor(columns)),
+                (
+                    "model",
+                    RandomForestClassifier(
+                        n_estimators=200,
+                        max_depth=24,
+                        min_samples_leaf=2,
+                        class_weight=None,
+                        n_jobs=-1,
+                        random_state=SEED,
+                    ),
+                ),
+            ]
+        ),
     }
 
 
@@ -152,7 +168,7 @@ def json_safe(value):
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", choices=["logistic", "random_forest", "all"], default="all")
+    parser.add_argument("--model", choices=["logistic", "random_forest", "rf_unweighted", "all"], default="all")
     args = parser.parse_args()
     x_official_train, y_official_train, x_test, y_test = load_data()
     x_train, x_validation, y_train, y_validation = train_test_split(
